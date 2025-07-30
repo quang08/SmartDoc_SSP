@@ -1,0 +1,52 @@
+[
+  {
+    "title": "Giới thiệu",
+    "html": "<h1>Giới thiệu\n</h1><p>\n</p><p>Đây là template kèm hướng dẫn giúp tạo slide từ file Google Docs. Nguyên tắc của việc tạo slide từ file Google Docs rất đơn giản:\n</p><ul><li>File được đặt tên, ví dụ <strong>Tên tài liệu</strong>, thì chữ “Tên tài liệu” sẽ xuất hiện trong slide đầu tiên để giới thiệu.\n</li></ul><ul><li>Trong file, dòng đầu tiên sử dụng style là <strong>Title</strong>, dòng này sẽ xuất hiện trong slide tiếp theo.\n</li></ul><ul><li>Trong file, mỗi slide được đánh dấu bằng các Heading, ví dụ <strong>Heading 1</strong>, <strong>Heading 2</strong>... Mỗi Heading sẽ tạo ra một slide riêng.\n</li></ul><ul><li>Chia sẻ file ở <strong>chế độ công khai</strong>, rồi copy link lên <strong>SmartDoc\n</strong></li></ul>",
+    "children": [
+    {
+      "title": "Heading2",
+      "html": "<h2>Heading2</h2><p>Ví dụ cụ thể về Heading 2: Đây là một tiêu đề phụ dùng để nhóm các nội dung liên quan trong một phần lớn.</p>",
+      "children": [
+        {
+          "title": "Heading3",
+          "html": "<h3>Heading3</h3><p>Heading 3 là tiêu đề con trong Heading 2, dùng để chia nhỏ nội dung thành các mục cụ thể hơn.</p>",
+            "children": [],
+            "step": 3
+          }
+        ],
+        "step": 2
+      }
+    ],
+    "step": 1
+  },
+  {
+    "title": "Tải tài liệu lên SmartDoc",
+    "html": "<h1><strong>Tải tài liệu lên SmartDoc</strong>\n</h1><p>Truy cập vào SmartDoc (<a href=\"http://fit.neu.edu.vn/smartdoc\" target=\"_blank\"><u>fit.neu.edu.vn/smartdoc</u></a>), chọn Tab <strong>Đường dẫn</strong>  sau đó copy link Google Docs (sau khi chia sẻ công khai) vào ô đường dẫn, ví dụ:\n</p><p> \n</p><p>\n</p><p>Sau khi kéo thả file lên, có thể sử dụng các yêu cầu đối với tài liệu như “Xem nội dung”, “Tạo slide” ... Ví dụ khi tạo slide từ tài liệu:\n</p><p>\n</p>",
+    "children": [],
+    "step": 4
+  },
+  {
+    "title": "Hiển thị nội dung trên slide",
+    "html": "<h1>Hiển thị nội dung trên slide\n</h1><p>Nội dung slide 1, trong slide có thể có các ý nhỏ:\n</p><ul><li>Ý nhỏ 1\n</li></ul><ul><li>Ý nhỏ 2\n</li><ul><li>Ý nhỏ 2.1\n</li></ul><ul><li>Ý nhỏ 2.2\n</li></ul><ul><li>Ý nhỏ 2.3\n</li></ul></ul><ul><li>Ý nhỏ 3\n</li></ul><p>Trong slide có thể có hình ảnh:\n</p><p>\n</p><p>Trong slide có thể có các bảng, ví dụ:\n</p><table><tr><td>Quốc gia\n</td><td>Dân số\n</td><td>Diện tích\n</td></tr><tr><td>Việt Nam\n</td><td>102 triệu người\n</td><td>331,212 km2\n</td></tr><tr><td>Nhật Bản\n</td><td>123 triệu người\n</td><td>377,975 km2\n</td></tr><tr><td>Úc\n</td><td>26 triệu người\n</td><td>7,692,024 km2\n</td></tr></table><p> \n</p><p>Những đoạn văn dài thì sẽ không hiển thị trong slide. Ví dụ đây là một đoạn văn dài, đoạn văn này sẽ được thu gọn thành một icon trên slide và mọi người muốn đọc thì phải bấm vào slide đó. Đoạn văn này là một ví dụ của sự trống rỗng và không có nội dung cụ thể. Đôi khi, chúng ta có thể thấy những dòng văn không mang lại bất kỳ thông tin nào, chỉ đơn giản là những từ ngữ được sắp xếp mà không có mục đích rõ ràng. Mỗi câu lại nối tiếp nhau một cách tự nhiên, nhưng lại thiếu đi những yếu tố làm cho chúng trở nên có ý nghĩa. Nhìn chung, đây là một đoạn văn có thể được tạo ra từ bất kỳ nguồn tài liệu nào mà không cần phải suy nghĩ sâu sắc về vấn đề cụ thể nào. Mỗi từ đều giống như một khối xây dựng mà không cần phải kết nối với nhau một cách chặt chẽ, khiến cho nó trở nên hoàn toàn vô nghĩa. Tuy nhiên, sự không có ý nghĩa này lại có thể giúp người đọc có một cái nhìn mới mẻ về việc truyền đạt thông tin và sự trống rỗng trong ngôn ngữ.\n</p>",
+    "children": [],
+    "step": 5
+  },
+  {
+    "title": "Hiển thị bài tập trên slide",
+    "html": "<h1>Hiển thị bài tập trên slide\n</h1><p>Hệ thống có thể hiển thị một số dạng bài tập trực tiếp trên slide:\n</p><p>Muốn tạo ra một bài tập tự luận, tạo một bảng gồm 2 hàng, 2 cột, trong đó yêu cầu của bài làm để trong cột 1, hàng 1.\n</p><p> \n</p><p>Muốn tạo ra một bài tập yêu cầu nộp file, hàng 1 cột 2 để chữ file\n</p><p> \n</p><p>Muốn tạo ra câu trắc nghiệm, tạo một bảng gồm 2 cột, trong đó phương án đúng được đánh dấu ở dòng đầu tiên, các dòng còn lại của cột 2 để trống.\n</p>",
+    "children": [],
+    "step": 6
+  },
+  {
+    "title": "Các công cụ dành riêng cho lập trình",
+    "html": "<h1>Các công cụ dành riêng cho lập trình \n</h1><p>Để hiển thị Code cho sinh viên copy, tạo 1 bảng, và để font chữ Courier New:\n</p><p>\n</p><table><tr><td>class Main {\n  public static void main(String[] args) {\n\tSystem.out.println(\"Xin chào\");\n  }\n}\n</td></tr></table><p>Nếu muốn thị code có thể chạy được, tạo một bảng gồm 1 hàng, 2 cột, trong đó mã nguồn để bên trái, bên phải để chữ oj kèm theo ngôn ngữ, ví dụ với Java:\n</p><p>\n</p><p> Nếu muốn thiết lập đầu vào (input) và đầu ra (output) của chương trình, thêm dòng thứ 2 trong bảng, ví dụ đầu vào là 10 và 20, đầu ra của chương trình phải là 30:\n</p><p>\n</p><p>Nếu muốn chạy code html/css/javascript trên trình duyệt, có thể tách thành 3 file:\n</p>",
+    "children": [],
+    "step": 7
+  },
+  {
+    "title": "Tạo phòng học",
+    "html": "<h1>Tạo phòng học\n</h1><p>Để tạo phòng học, cần đăng nhập, sau khi đăng nhập bấm vào chữ “<strong>Phòng học</strong>”, và chọn “<strong>Danh sách phòng học</strong>”.\n</p><p>\n</p><p>Bấm vào “<strong>Tạo phòng học mới</strong>”, tại đây có thể nhập tên phòng (nếu cần), danh sách sinh viên (nếu có), sau đó bấm “<strong>Tạo phòng mớ</strong>i”.\n</p><p>\n</p>",
+    "children": [],
+    "step": 8
+  }
+]

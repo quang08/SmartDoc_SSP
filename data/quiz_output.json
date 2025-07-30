@@ -1,0 +1,284 @@
+[
+  {
+    "topic": "Giới thiệu",
+    "quizzes": {
+      "multiple_choice": [
+        {
+          "question": "Khi tạo slide từ file Google Docs, yếu tố nào sẽ xuất hiện trong slide đầu tiên để giới thiệu?",
+          "choices": {
+            "A": "Tên của file Google Docs.",
+            "B": "Dòng đầu tiên trong file sử dụng style Title.",
+            "C": "Heading 1 đầu tiên của tài liệu.",
+            "D": "Tên của người tạo tài liệu."
+          },
+          "correct": "A",
+          "explanation": "Theo gạch đầu dòng, 'File được đặt tên, ví dụ Tên tài liệu, thì chữ “Tên tài liệu” sẽ xuất hiện trong slide đầu tiên để giới thiệu.'",
+          "source_page": 1,
+          "source_text": "File được đặt tên, ví dụTên tài liệu, thì chữ “Tên tài liệu” sẽ xuất hiện trong slide đầu tiên để giới thiệu."
+        },
+        {
+          "question": "Yếu tố nào trong file Google Docs được sử dụng để đánh dấu và tạo ra một slide riêng biệt?",
+          "choices": {
+            "A": "Các Heading (ví dụ: Heading 1, Heading 2...).",
+            "B": "Các đoạn văn bản được in đậm.",
+            "C": "Mỗi khi có một dòng mới.",
+            "D": "Các trang mới trong tài liệu."
+          },
+          "correct": "A",
+          "explanation": "Mỗi Heading sẽ tạo ra một slide riêng, theo nguyên tắc tạo slide từ Google Docs.",
+          "source_page": 1,
+          "source_text": "Trong file, mỗi slide được đánh dấu bằng các Heading, ví dụHeading 1,Heading 2... Mỗi Heading sẽ tạo ra một slide riêng."
+        },
+        {
+          "question": "Để đưa file Google Docs lên SmartDoc, bạn cần thực hiện hành động nào sau khi hoàn thành file?",
+          "choices": {
+            "A": "Chia sẻ file ở chế độ công khai, rồi copy link lên SmartDoc.",
+            "B": "Tải file về máy tính và sau đó tải lên SmartDoc.",
+            "C": "Gửi file qua email cho đội ngũ hỗ trợ SmartDoc.",
+            "D": "Chỉ cần đăng nhập SmartDoc và tìm file trong Google Drive."
+          },
+          "correct": "A",
+          "explanation": "Bước cuối cùng được nêu là chia sẻ file ở chế độ công khai và copy link lên SmartDoc.",
+          "source_page": 1,
+          "source_text": "Chia sẻ file ởchế độ công khai, rồi copy link lênSmartDoc"
+        }
+      ],
+      "short_answer": [
+        {
+          "question": "Dòng nào trong file Google Docs sẽ xuất hiện trong slide thứ hai khi tạo slide?",
+          "ideal_answer": "Dòng đầu tiên sử dụng style là Title sẽ xuất hiện trong slide tiếp theo (tức là slide thứ hai).",
+          "source_page": 1,
+          "source_text": "Trong file, dòng đầu tiên sử dụng style làTitle, dòng này sẽ xuất hiện trong slide tiếp theo."
+        },
+        {
+          "question": "Theo tài liệu, Heading 2 có chức năng gì?",
+          "ideal_answer": "Heading 2 là một tiêu đề phụ dùng để nhóm các nội dung liên quan trong một phần lớn.",
+          "source_page": 2,
+          "source_text": "Ví dụ cụ thể về Heading 2: Đây là một tiêu đề phụ dùng để nhóm các nội dung liên quan trong một phần lớn."
+        },
+        {
+          "question": "Heading 3 được sử dụng với mục đích gì trong việc tạo slide từ Google Docs?",
+          "ideal_answer": "Heading 3 là tiêu đề con trong Heading 2, dùng để chia nhỏ nội dung thành các mục cụ thể hơn.",
+          "source_page": 3,
+          "source_text": "Heading 3 là tiêu đề con trong Heading 2, dùng để chia nhỏ nội dung thành các mục cụ thể hơn."
+        }
+      ]
+    }
+  },
+  {
+    "topic": "Tải tài liệu lên SmartDoc",
+    "quizzes": {
+      "multiple_choice": [
+        {
+          "question": "Để tải tài liệu lên SmartDoc bằng link Google Docs, người dùng cần thực hiện bước nào sau khi truy cập SmartDoc?",
+          "choices": {
+            "A": "Chọn Tab \"Đường dẫn\" và dán link Google Docs đã chia sẻ công khai.",
+            "B": "Kéo thả file trực tiếp vào giao diện.",
+            "C": "Chọn mục \"Tạo slide\".",
+            "D": "Bấm vào nút \"Xem nội dung\"."
+          },
+          "correct": "A",
+          "explanation": "Theo tài liệu, sau khi truy cập SmartDoc, người dùng cần chọn Tab \"Đường dẫn\" và copy link Google Docs đã chia sẻ công khai vào ô đường dẫn.",
+          "source_page": 4,
+          "source_text": "Truy cập vào SmartDoc (fit.neu.edu.vn/smartdoc), chọn TabĐường dẫnsau đó copy link Google Docs (sau khi chia sẻ công khai) vào ô đường dẫn, ví dụ:"
+        },
+        {
+          "question": "Sau khi tải tài liệu lên SmartDoc, người dùng có thể sử dụng những yêu cầu nào đối với tài liệu, theo tài liệu cung cấp?",
+          "choices": {
+            "A": "Xem nội dung và Tạo slide.",
+            "B": "Chỉnh sửa nội dung và Chia sẻ.",
+            "C": "Đổi tên và Xóa tài liệu.",
+            "D": "Tải xuống và In ấn."
+          },
+          "correct": "A",
+          "explanation": "Tài liệu nêu rõ 'có thể sử dụng các yêu cầu đối với tài liệu như “Xem nội dung”, “Tạo slide”...'",
+          "source_page": 4,
+          "source_text": "Sau khi kéo thả file lên, có thể sử dụng các yêu cầu đối với tài liệu như “Xem nội dung”, “Tạo slide” ... Ví dụ khi tạo slide từ tài liệu:"
+        }
+      ],
+      "short_answer": [
+        {
+          "question": "Theo tài liệu, để tải tài liệu lên SmartDoc bằng cách sử dụng đường dẫn, link Google Docs cần đáp ứng điều kiện gì?",
+          "ideal_answer": "Link Google Docs cần được chia sẻ công khai.",
+          "source_page": 4,
+          "source_text": "Truy cập vào SmartDoc (fit.neu.edu.vn/smartdoc), chọn TabĐường dẫnsau đó copy link Google Docs (sau khi chia sẻ công khai) vào ô đường dẫn, ví dụ:"
+        },
+        {
+          "question": "Ngoài việc dán link Google Docs, SmartDoc còn hỗ trợ phương pháp tải file nào khác được đề cập trong tài liệu?",
+          "ideal_answer": "SmartDoc còn hỗ trợ phương pháp kéo thả file lên.",
+          "source_page": 4,
+          "source_text": "Sau khi kéo thả file lên, có thể sử dụng các yêu cầu đối với tài liệu như “Xem nội dung”, “Tạo slide” ... Ví dụ khi tạo slide từ tài liệu:"
+        }
+      ]
+    }
+  },
+  {
+    "topic": "Hiển thị nội dung trên slide",
+    "quizzes": {
+      "multiple_choice": [
+        {
+          "question": "Theo tài liệu, những loại nội dung nào SAU ĐÂY có thể được hiển thị trực tiếp trên slide?",
+          "choices": {
+            "A": "Ý nhỏ, hình ảnh và bảng dữ liệu.",
+            "B": "Đoạn văn dài và hình ảnh.",
+            "C": "Ý nhỏ, đoạn văn dài và bảng dữ liệu.",
+            "D": "Hình ảnh, bảng dữ liệu và đoạn văn dài được thu gọn thành icon."
+          },
+          "correct": "A",
+          "explanation": "Tài liệu chỉ rõ rằng slide có thể chứa ý nhỏ, hình ảnh và bảng. Những đoạn văn dài sẽ không hiển thị trực tiếp mà được thu gọn thành icon.",
+          "source_page": 5,
+          "source_text": "Nội dung slide 1, trong slide có thể có các ý nhỏ:\nTrong slide có thể có hình ảnh:\nTrong slide có thể có các bảng, ví dụ:"
+        },
+        {
+          "question": "Theo tài liệu, cách xử lý đối với những đoạn văn dài khi hiển thị trên slide là gì?",
+          "choices": {
+            "A": "Hiển thị toàn bộ đoạn văn trên slide.",
+            "B": "Không hiển thị đoạn văn đó trên slide.",
+            "C": "Thu gọn đoạn văn thành một icon và yêu cầu người đọc bấm vào để xem nội dung đầy đủ.",
+            "D": "Chuyển đoạn văn sang một slide riêng."
+          },
+          "correct": "C",
+          "explanation": "Tài liệu nêu rõ 'Những đoạn văn dài thì sẽ không hiển thị trong slide... sẽ được thu gọn thành một icon trên slide và mọi người muốn đọc thì phải bấm vào slide đó.'",
+          "source_page": 5,
+          "source_text": "Những đoạn văn dài thì sẽ không hiển thị trong slide. Ví dụ đây là một đoạn văn dài, đoạn văn này sẽ được thu gọn thành một icon trên slide và mọi người muốn đọc thì phải bấm vào slide đó."
+        }
+      ],
+      "short_answer": [
+        {
+          "question": "Kể tên ba loại nội dung chính có thể xuất hiện trên một slide theo tài liệu.",
+          "ideal_answer": "Ba loại nội dung chính có thể xuất hiện trên một slide là các ý nhỏ, hình ảnh và bảng dữ liệu.",
+          "source_page": 5,
+          "source_text": "Nội dung slide 1, trong slide có thể có các ý nhỏ:\nTrong slide có thể có hình ảnh:\nTrong slide có thể có các bảng, ví dụ:"
+        },
+        {
+          "question": "Khi một đoạn văn quá dài, nó sẽ được hiển thị trên slide như thế nào và người đọc cần làm gì để xem nội dung đầy đủ?",
+          "ideal_answer": "Những đoạn văn dài sẽ không hiển thị trực tiếp trên slide mà được thu gọn thành một icon. Người đọc muốn xem nội dung đầy đủ thì phải bấm vào icon đó.",
+          "source_page": 5,
+          "source_text": "Những đoạn văn dài thì sẽ không hiển thị trong slide. Ví dụ đây là một đoạn văn dài, đoạn văn này sẽ được thu gọn thành một icon trên slide và mọi người muốn đọc thì phải bấm vào slide đó."
+        }
+      ]
+    }
+  },
+  {
+    "topic": "Hiển thị bài tập trên slide",
+    "quizzes": {
+      "multiple_choice": [
+        {
+          "question": "Để tạo một câu trắc nghiệm hiển thị trực tiếp trên slide, người dùng cần tạo một bảng gồm mấy cột và điều kiện nào sau đây là đúng?",
+          "choices": {
+            "A": "Một bảng gồm 2 cột, trong đó phương án đúng được đánh dấu ở dòng đầu tiên, các dòng còn lại của cột 2 để trống.",
+            "B": "Một bảng gồm 3 cột, trong đó phương án đúng được đánh dấu ở cột thứ ba.",
+            "C": "Một bảng gồm 2 hàng, 2 cột, trong đó yêu cầu bài làm để ở cột 1 hàng 1.",
+            "D": "Một bảng gồm 1 cột, trong đó tất cả các phương án đều nằm ở một ô và phương án đúng được gạch chân."
+          },
+          "correct": "A",
+          "explanation": "Theo tài liệu, để tạo câu trắc nghiệm, cần 'tạo một bảng gồm 2 cột, trong đó phương án đúng được đánh dấu ở dòng đầu tiên, các dòng còn lại của cột 2 để trống.'",
+          "source_page": 6,
+          "source_text": "Muốn tạo ra câu trắc nghiệm, tạo một bảng gồm 2 cột, trong đó phương án đúng được đánh dấu ở dòng đầu tiên, các dòng còn lại của cột 2 để trống."
+        }
+      ],
+      "short_answer": [
+        {
+          "question": "Để tạo một bài tập tự luận hiển thị trực tiếp trên slide, người dùng cần thực hiện cấu hình bảng như thế nào?",
+          "ideal_answer": "Để tạo một bài tập tự luận, người dùng cần tạo một bảng gồm 2 hàng, 2 cột. Yêu cầu của bài làm sẽ được đặt trong cột 1, hàng 1 của bảng đó.",
+          "source_page": 6,
+          "source_text": "Muốn tạo ra một bài tập tự luận, tạo một bảng gồm 2 hàng, 2 cột, trong đó yêu cầu của bài làm để trong cột 1, hàng 1."
+        }
+      ]
+    }
+  },
+  {
+    "topic": "Các công cụ dành riêng cho lập trình",
+    "quizzes": {
+      "multiple_choice": [
+        {
+          "question": "Theo tài liệu, để hiển thị mã nguồn (code) cho sinh viên sao chép, cần sử dụng cách định dạng nào?",
+          "choices": {
+            "A": "Tạo một bảng và sử dụng font chữ Times New Roman.",
+            "B": "Tạo một bảng và sử dụng font chữ Courier New.",
+            "C": "Sử dụng các thẻ định dạng văn bản thông thường như bold hoặc italic.",
+            "D": "Chụp màn hình mã nguồn và chèn vào tài liệu."
+          },
+          "correct": "B",
+          "explanation": "Tài liệu nêu rõ: 'Để hiển thị Code cho sinh viên copy, tạo 1 bảng, và để font chữ Courier New:'.",
+          "source_page": 7,
+          "source_text": "Để hiển thị Code cho sinh viên copy, tạo 1 bảng, và để font chữ Courier New:"
+        },
+        {
+          "question": "Để một đoạn mã có thể chạy được (kiểu OJ - Online Judge), cấu trúc bảng được đề xuất là gì?",
+          "choices": {
+            "A": "Một bảng gồm 2 hàng, 1 cột, với mã nguồn ở hàng trên.",
+            "B": "Một bảng gồm 1 hàng, 2 cột, mã nguồn ở bên trái và 'oj kèm ngôn ngữ' ở bên phải.",
+            "C": "Một bảng gồm 2 hàng, 2 cột, mã nguồn ở ô trên bên trái.",
+            "D": "Không cần bảng, chỉ cần đánh dấu 'oj' trước mã nguồn."
+          },
+          "correct": "B",
+          "explanation": "Tài liệu hướng dẫn: 'Nếu muốn thị code có thể chạy được, tạo một bảng gồm 1 hàng, 2 cột, trong đó mã nguồn để bên trái, bên phải để chữ oj kèm theo ngôn ngữ, ví dụ với Java:'.",
+          "source_page": 7,
+          "source_text": "Nếu muốn thị code có thể chạy được, tạo một bảng gồm 1 hàng, 2 cột, trong đó mã nguồn để bên trái, bên phải để chữ oj kèm theo ngôn ngữ, ví dụ với Java:"
+        }
+      ],
+      "short_answer": [
+        {
+          "question": "Hãy giải thích cách thiết lập đầu vào (input) và đầu ra (output) mong muốn cho một chương trình có thể chạy được (oj) theo hướng dẫn của tài liệu.",
+          "ideal_answer": "Để thiết lập đầu vào (input) và đầu ra (output) của chương trình có thể chạy được, tài liệu hướng dẫn thêm dòng thứ hai vào bảng. Trong dòng này, đầu vào sẽ được đặt ở phần trên (ví dụ: 10 và 20), và đầu ra mong muốn của chương trình sẽ được đặt ở phần dưới (ví dụ: 30).",
+          "source_page": 7,
+          "source_text": "Nếu muốn thiết lập đầu vào (input) và đầu ra (output) của chương trình, thêm dòng thứ 2 trong bảng, ví dụ đầu vào là 10 và 20, đầu ra của chương trình phải là 30:"
+        },
+        {
+          "question": "Theo tài liệu, để chạy mã HTML/CSS/JavaScript trên trình duyệt, có thể thực hiện theo cách nào?",
+          "ideal_answer": "Để chạy mã HTML/CSS/JavaScript trên trình duyệt, tài liệu gợi ý có thể tách thành 3 file riêng biệt (ví dụ: một file .html, một file .css và một file .js).",
+          "source_page": 7,
+          "source_text": "Nếu muốn chạy code html/css/javascript trên trình duyệt, có thể tách thành 3 file:"
+        }
+      ]
+    }
+  },
+  {
+    "topic": "Tạo phòng học",
+    "quizzes": {
+      "multiple_choice": [
+        {
+          "question": "Bước đầu tiên để tạo phòng học là gì?",
+          "choices": {
+            "A": "Đăng nhập",
+            "B": "Bấm vào chữ “Phòng học”",
+            "C": "Chọn “Danh sách phòng học”",
+            "D": "Bấm vào “Tạo phòng học mới”"
+          },
+          "correct": "A",
+          "explanation": "Theo tài liệu, để tạo phòng học, trước tiên cần đăng nhập.",
+          "source_page": 8,
+          "source_text": "Để tạo phòng học, cần đăng nhập, sau khi đăng nhập bấm vào chữ “Phòng học”, và chọn “Danh sách phòng học”."
+        },
+        {
+          "question": "Sau khi bấm vào “Tạo phòng học mới”, người dùng có thể nhập những thông tin tùy chọn nào?",
+          "choices": {
+            "A": "Tên phòng và danh sách sinh viên",
+            "B": "Chỉ tên phòng",
+            "C": "Chỉ danh sách sinh viên",
+            "D": "Mật khẩu phòng học"
+          },
+          "correct": "A",
+          "explanation": "Tại bước này, có thể nhập tên phòng (nếu cần) và danh sách sinh viên (nếu có).",
+          "source_page": 8,
+          "source_text": "Bấm vào “Tạo phòng học mới”, tại đây có thể nhập tên phòng (nếu cần), danh sách sinh viên (nếu có), sau đó bấm “Tạo phòng mới”."
+        }
+      ],
+      "short_answer": [
+        {
+          "question": "Nêu các bước cần thiết để truy cập vào mục “Danh sách phòng học” sau khi đã đăng nhập.",
+          "ideal_answer": "Sau khi đăng nhập, cần bấm vào chữ “Phòng học”, và sau đó chọn “Danh sách phòng học”.",
+          "source_page": 8,
+          "source_text": "Để tạo phòng học, cần đăng nhập, sau khi đăng nhập bấm vào chữ “Phòng học”, và chọn “Danh sách phòng học”."
+        },
+        {
+          "question": "Sau khi nhập xong tên phòng và danh sách sinh viên (nếu có), người dùng cần làm gì để hoàn tất việc tạo phòng học mới?",
+          "ideal_answer": "Người dùng cần bấm vào nút “Tạo phòng mới” để hoàn tất.",
+          "source_page": 8,
+          "source_text": "sau đó bấm “Tạo phòng mới”."
+        }
+      ]
+    }
+  }
+]
