@@ -1,25 +1,25 @@
 import os
+from typing import List
 
-# Gemini API Configuration
-GEMINI_API_KEY = "key"
+from dotenv import load_dotenv
+load_dotenv()
 
-# MongoDB Configuration
-MONGODB_URI = "mongodb://admin:password@ip:port/?authMechanism=SCRAM-SHA-1"
-MONGODB_DATABASE = "smart_study"
-MONGODB_COLLECTION = "practice_tests"
-MONGODB_CHAT_COLLECTION = "chat"
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "AIzaSyD1P2K1S3DPZLNiMwNkDLPIdgMSJQVdXF4")
 
-# FastAPI Configuration
-API_TITLE = "Quiz Generator API"
-API_VERSION = "2.0"
-API_HOST = "0.0.0.0"
-API_PORT = 8000
+MONGODB_URI = os.getenv("MONGODB_URI", "mongodb://admin:123456@101.96.66.217:8000/?authMechanism=SCRAM-SHA-1")
+MONGODB_DATABASE = os.getenv("MONGODB_DATABASE", "smart_study")
+MONGODB_COLLECTION = os.getenv("MONGODB_COLLECTION", "practice_tests")
+MONGODB_CHAT_COLLECTION = os.getenv("MONGODB_CHAT_COLLECTION", "chat")
 
-# CORS Configuration
-CORS_ORIGINS = ["*"]
-CORS_CREDENTIALS = True
-CORS_METHODS = ["*"]
-CORS_HEADERS = ["*"]
+API_TITLE = "SmartStudy for SmartDoc"
+API_VERSION = os.getenv("API_VERSION", "2.0")
+API_HOST = os.getenv("API_HOST", "0.0.0.0")
+API_PORT = int(os.getenv("API_PORT", "8000"))
+
+CORS_ORIGINS = os.getenv("CORS_ORIGINS", "*").split(",") if os.getenv("CORS_ORIGINS") != "*" else ["*"]
+CORS_CREDENTIALS = os.getenv("CORS_CREDENTIALS", "True").lower() == "true"
+CORS_METHODS = os.getenv("CORS_METHODS", "*").split(",") if os.getenv("CORS_METHODS") != "*" else ["*"]
+CORS_HEADERS = os.getenv("CORS_HEADERS", "*").split(",") if os.getenv("CORS_HEADERS") != "*" else ["*"]
 
 # Default Language
-DEFAULT_LANGUAGE = "Vietnamese" 
+DEFAULT_LANGUAGE = os.getenv("DEFAULT_LANGUAGE", "Vietnamese") 
