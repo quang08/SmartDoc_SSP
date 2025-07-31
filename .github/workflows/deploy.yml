@@ -1,0 +1,41 @@
+name: Deploy Backend
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy Backend
+    runs-on: self-hosted
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Create .env file
+        run: |
+          echo "GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}" >> .env
+          echo "MONGODB_URI=${{ secrets.MONGODB_URI }}" >> .env
+          echo "MONGODB_DATABASE=${{ secrets.MONGODB_DATABASE }}" >> .env
+          echo "MONGODB_COLLECTION=${{ secrets.MONGODB_COLLECTION }}" >> .env
+          echo "MONGODB_CHAT_COLLECTION=${{ secrets.MONGODB_CHAT_COLLECTION }}" >> .env
+          echo "API_VERSION=2.0" >> .env
+          echo "API_HOST=0.0.0.0" >> .env
+          echo "API_PORT=8000" >> .env
+          echo "CORS_ORIGINS=*" >> .env
+          echo "CORS_CREDENTIALS=True" >> .env
+          echo "CORS_METHODS=*" >> .env
+          echo "CORS_HEADERS=*" >> .env
+          echo "DEFAULT_LANGUAGE=Vietnamese" >> .env
+
+      - name: Setup Python
+        uses: actions/checkout@v4
+
+      - name: Install Dependencies
+        run: |
+          source .venv/bin/activate
+          pip install -r requirements.txt
+
+      - name: Deploy
+        run: pm2 restart smartdoc-ssp
