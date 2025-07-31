@@ -1,2 +1,19 @@
+# Virtual environments
 /venv/
-/__pycache__
+.venv/
+venv/
+env/
+ENV/
+
+/__pycache__/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+.DS_Store
+Thumbs.db
+
+.env
+.env.local
+.env.*.local
