@@ -130,10 +130,10 @@ async def get_all_questions(limit: int = 100):
         raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
 
 @app.get("/check-availability")
-async def check_practice_tests_availability():
-    """Quick check if any practice tests are available."""
+async def check_practice_tests_availability(roomId: str):
+    """Check if any practice tests are available for a given room."""
     try:
-        count = db_manager.collection.count_documents({})
+        count = db_manager.collection.count_documents({"room_id": roomId})
         return {
             "available": count > 0,
             "count": count
