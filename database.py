@@ -7,6 +7,9 @@ from uuid import uuid4
 class MongoDBManager:
     def __init__(self):
         """Initialize MongoDB connection."""
+        import os
+        print("DEBUG: Loaded MONGODB_URI from environment:", os.getenv("MONGODB_URI"))
+        print("DEBUG: Final MONGODB_URI used in config:", MONGODB_URI)
         self.client = MongoClient(MONGODB_URI)
         self.db = self.client[MONGODB_DATABASE]
         self.collection = self.db[MONGODB_COLLECTION]
