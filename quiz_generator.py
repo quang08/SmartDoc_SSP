@@ -6,6 +6,7 @@ from models import Topic, TopicQuiz, Quiz
 from utils import classify_slide_structure, collect_html_and_steps, find_step_from_text
 from database import MongoDBManager
 from datetime import datetime, timezone
+import re
 
 class QuizGenerator:
     def __init__(self, api_key: str):
@@ -177,13 +178,113 @@ LƯU Ý: Chỉ trả về JSON hợp lệ, không thêm văn bản giải thích
         """Save generated quizzes to MongoDB."""
         return self.db_manager.save_generated_questions(quizzes, metadata)
     
+#     def generate_qna_content(self, request_data: Dict) -> Dict:
+#       """Generate Q&A content for a specific slide step."""
+#       message = request_data.get("message", "")
+#       extracted_content = request_data.get("extractedContent", [])
+#       step = request_data.get("step", 1)
+#       step_name = request_data.get("step_name", "")
+#       structured_data = request_data.get("structuredData", {})
+
+#       # Extract clean text content from current step
+#       current_step_content = "\n".join([
+#           item.get("text_content", "").strip()
+#           for item in extracted_content
+#           if item.get("text_content")
+#       ])
+
+#       # Collect contextual info from other steps
+#       all_content = []
+#       relevant_step_ids = []
+#       context_info = ""
+
+#       if structured_data.get("content"):
+#           for slide in structured_data["content"]:
+#               slide_step = slide.get("step", 0)
+#               soup = BeautifulSoup(slide.get("html", "") or "", "html.parser")
+#               slide_text = soup.get_text(strip=True)
+#               all_content.append({
+#                   "step": slide_step,
+#                   "title": slide.get("title", ""),
+#                   "content": slide_text,
+#                   "is_current": slide_step == step
+#               })
+
+#           related_lines = [
+#               f"- Bước {c['step']} ({c['title']}): {c['content'][:200]}..."
+#               for c in all_content if not c["is_current"] and c["content"]
+#           ]
+#           if related_lines:
+#               context_info = "\n\nTHÔNG TIN LIÊN QUAN TỪ CÁC BƯỚC KHÁC:\n" + "\n".join(related_lines)
+#               relevant_step_ids = [c["step"] for c in all_content if not c["is_current"]]
+
+#       # Check if there are images in the current step
+#       has_images = any(item.get("images") for item in extracted_content)
+#       escaped_context_info = context_info.strip().replace('"', '\\"') if context_info else ""
+
+#       # Construct the prompt
+#       prompt = f"""
+#   Bạn là một trợ lý học tập thông minh. Hãy tạo nội dung Hỏi và Đáp (Q&A) dựa trên nội dung của một bước cụ thể trong slide học tập. Trả lời HOÀN TOÀN BẰNG TIẾNG VIỆT.
+
+#   === THÔNG TIN BƯỚC HIỆN TẠI ===
+#   - Bước: {step}
+#   - Tên bước: {step_name}
+#   - Yêu cầu từ người dùng: {message}
+#   → Hãy làm đúng theo yêu cầu này trong phần trả lời, KHÔNG tự ý đổi thành một yêu cầu khác.
+#   - Có hình ảnh: {"Có" if has_images else "Không"}
+
+#   === NỘI DUNG CHÍNH CỦA BƯỚC NÀY ===
+#   {current_step_content or "(Không có nội dung rõ ràng để trả lời yêu cầu này.)"}
+
+#   {context_info}
+
+#   === HƯỚNG DẪN TẠO NỘI DUNG ===
+# 1. Phân tích kỹ nội dung của bước hiện tại.
+# 2. Câu trả lời phải bắt đầu bằng: **“Dựa trên slide {step}: ...”**
+# 3. Nếu nội dung slide trình bày các khái niệm, đặc điểm, hay nguyên lý cơ bản, hãy tạo một ví dụ minh họa ngắn gọn và thân thiện, gắn với các tình huống quen thuộc trong cuộc sống hằng ngày (ví dụ như mua hàng, học tập, thời tiết, v.v.).
+# 4. Hạn chế sử dụng thuật ngữ kỹ thuật (như “hồi quy”, “mô hình thống kê”) nếu không giải thích kèm theo. Ưu tiên lối trình bày dễ hiểu cho người mới học.
+# 5. Chỉ trả lời “Không có đủ thông tin...” nếu nội dung hoàn toàn không cung cấp khái niệm hoặc đặc điểm nào để tạo ví dụ.
+# 6. Nếu cần, có thể tham khảo thông tin từ các bước khác để hỗ trợ nhưng không được bịa đặt.
+# 7. Trình bày câu trả lời liền mạch, rõ ràng, trong khoảng 100-300 từ. KHÔNG sử dụng định dạng Q/A.
+
+
+#   === ĐỊNH DẠNG JSON TRẢ VỀ ===
+#   {{
+#     "step": {step},
+#     "step_name": "{step_name}",
+#     "answer": "Nội dung hỏi đáp hoặc lời phản hồi, bắt đầu bằng 'Dựa trên slide {step}: ...'",
+#     "relevant_info": "{escaped_context_info}",
+#     "relevant_steps": {relevant_step_ids}
+#   }}
+#   """.strip()
+
+#       try:
+#           response = self.model.generate_content(prompt)
+#           output = response.text.strip()
+#           # Log raw output for debugging
+#           print(f"[LLM RAW OUTPUT] {output!r}")
+#           # Remove code block markers if present
+#           if output.startswith("```json"):
+#               output = output.removeprefix("```json").removesuffix("```").strip()
+#           elif output.startswith("```"):
+#               output = output.removeprefix("```").removesuffix("```").strip()
+#           if not output:
+#               return {"error": "LLM returned empty output. Check prompt or model quota."}
+#           try:
+#               qna_data = json.loads(output)
+#           except Exception as e:
+#               return {"error": f"LLM did not return valid JSON. Raw output: {output[:200]}... Error: {str(e)}"}
+#           return qna_data
+#       except Exception as e:
+#           return {"error": f"Failed to generate Q&A content: {str(e)}"}
+
     def generate_qna_content(self, request_data: Dict) -> Dict:
       """Generate Q&A content for a specific slide step."""
       message = request_data.get("message", "")
       extracted_content = request_data.get("extractedContent", [])
       step = request_data.get("step", 1)
       step_name = request_data.get("step_name", "")
-      structured_data = request_data.get("structuredData", {})
+      structured_data = request_data.get("structuredData") or {}
 
       # Extract clean text content from current step
       current_step_content = "\n".join([
@@ -243,9 +344,9 @@ LƯU Ý: Chỉ trả về JSON hợp lệ, không thêm văn bản giải thích
 3. Nếu nội dung slide trình bày các khái niệm, đặc điểm, hay nguyên lý cơ bản, hãy tạo một ví dụ minh họa ngắn gọn và thân thiện, gắn với các tình huống quen thuộc trong cuộc sống hằng ngày (ví dụ như mua hàng, học tập, thời tiết, v.v.).
 4. Hạn chế sử dụng thuật ngữ kỹ thuật (như “hồi quy”, “mô hình thống kê”) nếu không giải thích kèm theo. Ưu tiên lối trình bày dễ hiểu cho người mới học.
 5. Chỉ trả lời “Không có đủ thông tin...” nếu nội dung hoàn toàn không cung cấp khái niệm hoặc đặc điểm nào để tạo ví dụ.
-6. Nếu cần, có thể tham khảo thông tin từ các bước khác để hỗ trợ nhưng không được bịa đặt.
+6. Không được bịa đặt.
 7. Trình bày câu trả lời liền mạch, rõ ràng, trong khoảng 100-300 từ. KHÔNG sử dụng định dạng Q/A.
-
+8. Chỉ trả về một khối JSON duy nhất như mẫu, KHÔNG GIẢI THÍCH, KHÔNG THÊM VĂN BẢN BÊN NGOÀI JSON.
 
   === ĐỊNH DẠNG JSON TRẢ VỀ ===
   {{
@@ -262,11 +363,10 @@ LƯU Ý: Chỉ trả về JSON hợp lệ, không thêm văn bản giải thích
           output = response.text.strip()
           # Log raw output for debugging
           print(f"[LLM RAW OUTPUT] {output!r}")
-          # Remove code block markers if present
-          if output.startswith("```json"):
-              output = output.removeprefix("```json").removesuffix("```").strip()
-          elif output.startswith("```"):
-              output = output.removeprefix("```").removesuffix("```").strip()
+          
+          if output.startswith("```json") or output.startswith("```"):
+            output = re.sub(r"^```(?:json)?\s*([\s\S]+?)\s*```$", r"\1", output, flags=re.MULTILINE).strip()
+
           if not output:
               return {"error": "LLM returned empty output. Check prompt or model quota."}
           try:
@@ -276,10 +376,13 @@ LƯU Ý: Chỉ trả về JSON hợp lệ, không thêm văn bản giải thích
           return qna_data
       except Exception as e:
           return {"error": f"Failed to generate Q&A content: {str(e)}"}
-    
+
     def save_qna_to_chat(self, qna_data: Dict, request_data: Dict) -> str:
         """Save Q&A content to chat collection."""
-        structured_data = request_data.get("structuredData", {})
+        if not qna_data:
+            return "No Q&A data to save"
+            
+        structured_data = request_data.get("structuredData", {}) or {}
         
         # Extract metadata from structured data
         lab_name = structured_data.get("labName", "Unknown")
