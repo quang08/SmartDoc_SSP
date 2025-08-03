@@ -93,6 +93,12 @@ class QnARequest(BaseModel):
     extractedContent: List[ExtractedContent]
     step: int
     step_name: str
+    currentStepIndex: Optional[int] = None
+    totalSteps: Optional[int] = None
+    room_id: Optional[str] = None
+    user_id: Optional[str] = None
+    user_email: Optional[str] = None
+    lab_name: Optional[str] = None
     structuredData: Optional[Dict] = None
 
 class QnAResponse(BaseModel):

@@ -384,12 +384,12 @@ LƯU Ý: Chỉ trả về JSON hợp lệ, không thêm văn bản giải thích
             
         structured_data = request_data.get("structuredData", {}) or {}
         
-        # Extract metadata from structured data
-        lab_name = structured_data.get("labName", "Unknown")
-        room_id = structured_data.get("roomId", "")
-        doc_id = structured_data.get("docID", "")
-        user_id = structured_data.get("userID", "")
-        user_email = structured_data.get("userEmail", "")
+        # Extract metadata from request data (not structured_data)
+        lab_name = request_data.get("lab_name", "Unknown Lab")
+        room_id = request_data.get("room_id", "")
+        doc_id = request_data.get("doc_id", "")
+        user_id = request_data.get("user_id", "")
+        user_email = request_data.get("user_email", "")
         
         # Create Q&A entry
         qna_entry = {
