@@ -17,7 +17,7 @@ app = FastAPI(title=API_TITLE, version=API_VERSION)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=CORS_ORIGINS,
+    allow_origins=["https://fit.neu.edu.vn", "http://localhost:3000", "http://127.0.0.1:3000"],
     allow_credentials=CORS_CREDENTIALS,
     allow_methods=CORS_METHODS,
     allow_headers=CORS_HEADERS,
