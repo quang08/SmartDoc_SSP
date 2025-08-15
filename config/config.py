@@ -6,8 +6,9 @@ from dotenv import load_dotenv
 load_dotenv(dotenv_path=Path(__file__).resolve().parent.parent / ".env")
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+OPEN_API_KEY = os.getenv("OPEN_API_KEY")
 
-MONGODB_URI = os.getenv("MONGODB_URI")
+MONGODB_URI = "mongodb://admin:123456@101.96.66.217:8000/?authMechanism=SCRAM-SHA-1&directConnection=true"
 MONGODB_DATABASE = os.getenv("MONGODB_DATABASE", "smart_study")
 MONGODB_COLLECTION = os.getenv("MONGODB_COLLECTION", "practice_tests")
 MONGODB_CHAT_COLLECTION = os.getenv("MONGODB_CHAT_COLLECTION", "chat")

@@ -17,7 +17,7 @@ app = FastAPI(title=API_TITLE, version=API_VERSION)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://fit.neu.edu.vn", "http://localhost:3000", "http://127.0.0.1:3000"],
+    allow_origins=CORS_ORIGINS,
     allow_credentials=CORS_CREDENTIALS,
     allow_methods=CORS_METHODS,
     allow_headers=CORS_HEADERS,
@@ -74,7 +74,6 @@ async def generate_quiz_from_slides(payload: QuizRequest):
             userEmail=payload.userEmail
         )
 
-
 @app.get("/")
 def root():
     """Root endpoint with API information."""
@@ -115,6 +114,26 @@ async def get_all_tests(limit: int = 100, skip: int = 0):
             total=0,
             error=f"Database error: {str(e)}"
         )
+    
+@app.delete("/conversation/{room_id}/{user_id}")
+async def delete_conversation(room_id: str, user_id: str):
+    """Delete all chat history for a given room and user."""
+    try:
+        result = db_manager.collection.delete_many({"room_id": room_id, "user_id": user_id})
+        chat_result = None
+        if hasattr(db_manager, 'chat_collection'):
+            chat_result = db_manager.chat_collection.delete_many({"room_id": room_id, "user_id": user_id})
+        deleted_count = result.deleted_count + (chat_result.deleted_count if chat_result else 0)
+        return {
+            "success": True,
+            "deleted_count": deleted_count,
+            "message": f"Deleted {deleted_count} chat entries for room {room_id} and user {user_id}."
+        }
+    except Exception as e:
+        return {
+            "success": False,
+            "error": f"Failed to delete chat history: {str(e)}"
+        }
 
 @app.get("/questions")
 async def get_all_questions(limit: int = 100):
