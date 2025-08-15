@@ -41,5 +41,5 @@ jobs:
 
       - name: Deploy
         run: |
-          pm2 restart smartdoc-ssp
+          pm2 start "uvicorn app:app --host 0.0.0.0 --port 8000 --reload" --name smartdoc-ssp
           
