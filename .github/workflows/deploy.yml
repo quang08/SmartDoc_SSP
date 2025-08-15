@@ -34,11 +34,16 @@ jobs:
 
       - name: Create Python Virtual Environment
         run: |
+          python -m venv .venv
           source .venv/bin/activate
+          python --version
 
       - name: Install Dependencies
         run: |
           pip install -r requirements.txt
 
       - name: Deploy
-        run: pm2 restart smartdoc-ssp
+        run: |
+          pm2 delete smartdoc-ssp
+          pm2 start "uvicorn app:app --host 0.0.0.0 --port 8000 --reload" --name smartdoc-ssp
+          
