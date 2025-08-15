@@ -160,38 +160,6 @@ async def check_practice_tests_availability(roomId: str):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
 
-# @app.get("/questions/{question_id}")
-# async def get_questions_by_id(question_id: str):
-#     """Retrieve questions by ID from MongoDB."""
-#     try:
-#         questions = db_manager.get_questions_by_id(question_id)
-#         if not questions:
-#             raise HTTPException(status_code=404, detail="Questions not found")
-#         return {
-#             "success": True,
-#             "questions": questions
-#         }
-#     except HTTPException:
-#         raise
-#     except Exception as e:
-#         raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
-
-# @app.delete("/questions/{question_id}")
-# async def delete_questions(question_id: str):
-#     """Delete questions by ID from MongoDB."""
-#     try:
-#         success = db_manager.delete_questions(question_id)
-#         if not success:
-#             raise HTTPException(status_code=404, detail="Questions not found")
-#         return {
-#             "success": True,
-#             "message": f"Questions with ID {question_id} deleted successfully"
-#         }
-#     except HTTPException:
-#         raise
-#     except Exception as e:
-#         raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
-
 @app.post("/chat", response_model=QnAResponse)
 async def generate_qna_content(request: QnARequest):
     """Generate Q&A content for a specific slide step."""
