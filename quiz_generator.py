@@ -14,7 +14,7 @@ class QuizGenerator:
     def __init__(self, api_key: str):
         """Initialize the quiz generator with Qwen API key (OpenAI compatible)."""
         self.client = OpenAI(
-           api_key=os.getenv("OPEN_API_KEY"),
+           api_key=os.getenv("OPENAI_API_KEY"),
            base_url="https://dashscope-intl.aliyuncs.com/compatible-mode/v1"
         )
         self.db_manager = MongoDBManager()
