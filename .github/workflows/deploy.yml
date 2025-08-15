@@ -10,8 +10,18 @@ jobs:
     name: Deploy Backend
     runs-on: self-hosted
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+            python-version: '3.11.12'
+
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt
 
       - name: Create .env file
         run: |
@@ -28,18 +38,6 @@ jobs:
           echo "CORS_METHODS=*" >> .env
           echo "CORS_HEADERS=*" >> .env
           echo "DEFAULT_LANGUAGE=Vietnamese" >> .env
-
-      - name: Setup Python
-        uses: actions/checkout@v4
-
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-            python-version: '3.11.12'
-
-      - name: Install Dependencies
-        run: |
-          pip install -r requirements.txt
 
       - name: Deploy
         run: |
