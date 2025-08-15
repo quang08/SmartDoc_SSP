@@ -88,9 +88,11 @@ class QuizGenerator:
         has_images = any(item.get("images") for item in extracted_content)
         escaped_context_info = context_info.strip().replace('"', '\"') if context_info else ""
 
-        # Construct the prompt
+                # Construct the prompt
         prompt = f"""
 Bạn là một trợ lý học tập thông minh. Hãy tạo nội dung Hỏi và Đáp (Q&A) dựa trên nội dung của một bước cụ thể trong slide học tập. Trả lời HOÀN TOÀN BẰNG TIẾNG VIỆT.
+
+QUAN TRỌNG: CHỈ ĐƯỢC SỬ DỤNG THÔNG TIN TỪ SLIDE HIỆN TẠI. KHÔNG ĐƯỢC SỬ DỤNG THÔNG TIN TỪ CÁC SLIDE KHÁC HOẶC BẤT KỲ NGỮ CẢNH TRƯỚC ĐÓ. Nếu không có đủ thông tin trong slide hiện tại, hãy trả lời "Không có đủ thông tin để trả lời yêu cầu này."
 
 === THÔNG TIN BƯỚC HIỆN TẠI ===
 - Bước: {step}
@@ -116,11 +118,11 @@ Bạn là một trợ lý học tập thông minh. Hãy tạo nội dung Hỏi v
 
 === ĐỊNH DẠNG JSON TRẢ VỀ ===
 {{
-  "step": {step},
-  "step_name": "{step_name}",
-  "answer": "Nội dung hỏi đáp hoặc lời phản hồi, bắt đầu bằng 'Dựa trên slide {step}: ...'",
-  "relevant_info": "{escaped_context_info}",
-  "relevant_steps": {relevant_step_ids}
+    "step": {step},
+    "step_name": "{step_name}",
+    "answer": "Nội dung hỏi đáp hoặc lời phản hồi, bắt đầu bằng 'Dựa trên slide {step}: ...'",
+    "relevant_info": "{escaped_context_info}",
+    "relevant_steps": {relevant_step_ids}
 }}
 """.strip()
 
@@ -129,6 +131,7 @@ Bạn là một trợ lý học tập thông minh. Hãy tạo nội dung Hỏi v
                 {"role": "system", "content": "Bạn là một trợ lý học tập thông minh."},
                 {"role": "user", "content": prompt}
             ]
+            print(f"[LLM INPUT PROMPT] {prompt}")
             completion = self.client.chat.completions.create(
                 model="qwen-max",
                 messages=messages,
