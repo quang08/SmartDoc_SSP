@@ -10,7 +10,7 @@ class MongoDBManager:
         import os
         print("DEBUG: Loaded MONGODB_URI from environment:", os.getenv("MONGODB_URI"))
         print("DEBUG: Final MONGODB_URI used in config:", MONGODB_URI)
-        self.client = MongoClient("mongodb://admin:123456@101.96.66.217:8000/?authMechanism=SCRAM-SHA-1&directConnection=true")
+        self.client = MongoClient(MONGODB_URI)
         self.db = self.client[MONGODB_DATABASE]
         self.collection = self.db[MONGODB_COLLECTION]
         self.chat_collection = self.db[MONGODB_CHAT_COLLECTION]
