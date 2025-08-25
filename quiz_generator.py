@@ -88,11 +88,17 @@ class QuizGenerator:
         has_images = any(item.get("images") for item in extracted_content)
         escaped_context_info = context_info.strip().replace('"', '\"') if context_info else ""
 
-                # Construct the prompt
+        # Construct the prompt
         prompt = f"""
 Bạn là một trợ lý học tập thông minh. Hãy tạo nội dung Hỏi và Đáp (Q&A) dựa trên nội dung của một bước cụ thể trong slide học tập. Trả lời HOÀN TOÀN BẰNG TIẾNG VIỆT.
 
-QUAN TRỌNG: CHỈ ĐƯỢC SỬ DỤNG THÔNG TIN TỪ SLIDE HIỆN TẠI. KHÔNG ĐƯỢC SỬ DỤNG THÔNG TIN TỪ CÁC SLIDE KHÁC HOẶC BẤT KỲ NGỮ CẢNH TRƯỚC ĐÓ. Nếu không có đủ thông tin trong slide hiện tại, hãy trả lời "Không có đủ thông tin để trả lời yêu cầu này."
+QUAN TRỌNG:
+- CHỈ ĐƯỢC SỬ DỤNG THÔNG TIN TỪ SLIDE HIỆN TẠI. KHÔNG ĐƯỢC SỬ DỤNG THÔNG TIN TỪ CÁC SLIDE KHÁC HOẶC BẤT KỲ NGỮ CẢNH TRƯỚC ĐÓ. 
+- Nếu không có đủ thông tin trong slide hiện tại, hãy trả lời trước: "Không có đủ thông tin để trả lời yêu cầu này." 
+  Ngay sau đó, vẫn phải đưa ra một lời giải thích hoặc gợi ý ngắn gọn, phù hợp với câu hỏi, mang tính khái quát hoặc tình huống minh họa.
+- KHÔNG được viết trực tiếp đáp án cuối cùng, KHÔNG được cung cấp toàn bộ đoạn mã hay kết quả cụ thể, trừ khi yêu cầu của người dùng chứa đúng cụm từ: **"đưa câu trả lời chính xác"**.
+- Khi KHÔNG có cụm này, chỉ được giải thích ý tưởng, hướng tiếp cận, hoặc các bước gợi ý (ví dụ: “hãy bắt đầu bằng cách kiểm tra điều kiện”, “sau đó nghĩ đến trường hợp điểm dưới 5”, v.v.), tuyệt đối tránh viết đáp án hoặc code hoàn chỉnh.
+- Không được bịa đặt thông tin ngoài slide.
 
 === THÔNG TIN BƯỚC HIỆN TẠI ===
 - Bước: {step}
@@ -109,18 +115,16 @@ QUAN TRỌNG: CHỈ ĐƯỢC SỬ DỤNG THÔNG TIN TỪ SLIDE HIỆN TẠI. KH�
 === HƯỚNG DẪN TẠO NỘI DUNG ===
 1. Phân tích kỹ nội dung của bước hiện tại.
 2. Câu trả lời phải bắt đầu bằng: **“Dựa trên slide {step}: ...”**
-3. Nếu nội dung slide trình bày các khái niệm, đặc điểm, hay nguyên lý cơ bản, hãy tạo một ví dụ minh họa ngắn gọn và thân thiện, gắn với các tình huống quen thuộc trong cuộc sống hằng ngày (ví dụ như mua hàng, học tập, thời tiết, v.v.).
-4. Hạn chế sử dụng thuật ngữ kỹ thuật (như “hồi quy”, “mô hình thống kê”) nếu không giải thích kèm theo. Ưu tiên lối trình bày dễ hiểu cho người mới học.
-5. Chỉ trả lời “Không có đủ thông tin...” nếu nội dung hoàn toàn không cung cấp khái niệm hoặc đặc điểm nào để tạo ví dụ.
-6. Không được bịa đặt.
-7. Trình bày câu trả lời liền mạch, rõ ràng, trong khoảng 100-300 từ. KHÔNG sử dụng định dạng Q/A.
-8. Chỉ trả về một khối JSON duy nhất như mẫu, KHÔNG GIẢI THÍCH, KHÔNG THÊM VĂN BẢN BÊN NGOÀI JSON.
+3. Nếu người dùng KHÔNG yêu cầu "đưa câu trả lời chính xác", chỉ đưa ra gợi ý, bước trung gian, hoặc ví dụ minh họa. KHÔNG đưa lời giải đầy đủ hoặc đoạn code hoàn chỉnh.
+4. Nếu người dùng có cụm "đưa câu trả lời chính xác", mới đưa đáp án hoặc code đầy đủ.
+5. Trình bày câu trả lời rõ ràng, liền mạch, 100-300 từ. KHÔNG sử dụng định dạng Q/A.
+6. Chỉ trả về một khối JSON duy nhất như mẫu, KHÔNG giải thích, KHÔNG thêm văn bản ngoài JSON.
 
 === ĐỊNH DẠNG JSON TRẢ VỀ ===
 {{
     "step": {step},
     "step_name": "{step_name}",
-    "answer": "Nội dung hỏi đáp hoặc lời phản hồi, bắt đầu bằng 'Dựa trên slide {step}: ...'",
+    "answer": "Nội dung trả lời hoặc gợi ý, bắt đầu bằng 'Dựa trên slide {step}: ...'",
     "relevant_info": "{escaped_context_info}",
     "relevant_steps": {relevant_step_ids}
 }}
