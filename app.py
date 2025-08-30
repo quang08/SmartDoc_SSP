@@ -1,6 +1,7 @@
 from typing import List, Optional
 from fastapi import FastAPI, Body, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from datetime import datetime, timezone
 
 from config.config import (
     GEMINI_API_KEY, API_TITLE, API_VERSION, 
@@ -119,15 +120,23 @@ async def get_all_tests(limit: int = 100, skip: int = 0):
 async def delete_conversation(room_id: str, user_id: str):
     """Delete all chat history for a given room and user."""
     try:
-        result = db_manager.collection.delete_many({"room_id": room_id, "user_id": user_id})
+        result = db_manager.collection.update_many(
+            {"room_id": room_id, "user_id": user_id},
+            {"$set": {"deleted": True}}
+        )
         chat_result = None
         if hasattr(db_manager, 'chat_collection'):
-            chat_result = db_manager.chat_collection.delete_many({"room_id": room_id, "user_id": user_id})
-        deleted_count = result.deleted_count + (chat_result.deleted_count if chat_result else 0)
+            chat_result = db_manager.chat_collection.update_many(
+                {"room_id": room_id, "user_id": user_id},
+                {"$set": {"deleted": True}}
+            )
+
+        modified_count = result.modified_count + (chat_result.modified_count if chat_result else 0)
+
         return {
             "success": True,
-            "deleted_count": deleted_count,
-            "message": f"Deleted {deleted_count} chat entries for room {room_id} and user {user_id}."
+            "modified_count": modified_count,
+            "message": f"Soft-deleted {modified_count} chat entries for room {room_id} and user {user_id}."
         }
     except Exception as e:
         return {
@@ -187,17 +196,21 @@ async def generate_qna_content(request: QnARequest):
         )
 
 @app.get("/conversation/{room_id}/{user_id}", response_model=ConversationResponse)
-async def get_conversation(room_id: str, user_id: str):
+async def get_conversation(self, room_id: str, user_id: str):
     """Get conversation by room_id and user_id."""
     try:
-        conversation = db_manager.get_conversation(room_id, user_id)
+        conversation = self.chat_collection.find_one({
+            "room_id": room_id,
+            "user_id": user_id,
+            "deleted": {"$ne": True}   # exclude deleted
+        })
         
-        if not conversation:
-            return ConversationResponse(
-                success=False,
-                error="Conversation not found",
-                message=f"No conversation found for room {room_id} and user {user_id}"
-            )
+        if conversation:
+            conversation["_id"] = str(conversation["_id"])
+            # Also filter out deleted Q&A entries inside qna_list
+            conversation["qna_list"] = [
+                q for q in conversation.get("qna_list", []) if not q.get("deleted", False)
+            ]
         
         return ConversationResponse(
             success=True,

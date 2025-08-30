@@ -177,7 +177,8 @@ QUAN TRỌNG:
             "answer": qna_data.get("answer", ""),
             "relevant_info": qna_data.get("relevant_info", ""),
             "relevant_steps": qna_data.get("relevant_steps", []),
-            "created_at": datetime.now(timezone.utc)
+            "created_at": datetime.now(timezone.utc),
+            "deleted": False
         }
         
         # Prepare conversation data
