@@ -192,10 +192,10 @@ async def generate_qna_content(request: QnARequest):
         return QnAResponse(success=False, error=f"Failed to generate Q&A content: {str(e)}")
 
 @app.get("/conversation/{room_id}/{user_id}", response_model=ConversationResponse)
-async def get_conversation(self, room_id: str, user_id: str):
+async def get_conversation(room_id: str, user_id: str):
     """Get conversation by room_id and user_id."""
     try:
-        conversation = self.chat_collection.find_one({
+        conversation = db_manager.chat_collection.find_one({
             "room_id": room_id,
             "user_id": user_id,
             "deleted": {"$ne": True}   # exclude deleted
