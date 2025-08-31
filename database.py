@@ -15,6 +15,91 @@ class MongoDBManager:
         self.collection = self.db[MONGODB_COLLECTION]
         self.chat_collection = self.db[MONGODB_CHAT_COLLECTION]
     
+    def save_chat_conversation_with_pathway(self, conversation_data: Dict) -> str:
+        """Upsert conversation; per step, push prior interaction into escalation_history and replace with the latest."""
+        room_id = conversation_data.get("room_id")
+        user_id = conversation_data.get("user_id")
+        qna_entry = conversation_data["qna_entry"]
+        step = qna_entry.get("step")
+
+        # Find or create conversation
+        existing = self.chat_collection.find_one({"room_id": room_id, "user_id": user_id, "deleted": {"$ne": True}})
+        now = datetime.now(timezone.utc)
+
+        if existing:
+            conversation_id = existing.get("conversation_id")
+
+            # Try to find an existing qna for this step (not deleted)
+            qna_list = existing.get("qna_list", [])
+            found_idx = None
+            for i, q in enumerate(qna_list):
+                if not q.get("deleted", False) and q.get("step") == step:
+                    found_idx = i
+                    break
+
+            if found_idx is None:
+                # Append new qna entry
+                self.chat_collection.update_one(
+                    {"_id": existing["_id"]},
+                    {"$push": {"qna_list": qna_entry}, "$set": {"last_updated": now}}
+                )
+            else:
+                # Escalation: push prior interaction to history, replace with latest interaction
+                prior = qna_list[found_idx]
+                prior_interaction = prior.get("chatbot_interaction", {})
+                if prior_interaction:
+                    # append to history
+                    self.chat_collection.update_one(
+                        {"_id": existing["_id"]},
+                        {
+                          "$push": {f"qna_list.{found_idx}.escalation_history": {
+                              "timestamp": prior_interaction.get("timestamp", now),
+                              "response_level": prior_interaction.get("response_level"),
+                              "llm_response": prior_interaction.get("llm_response")
+                          }},
+                          "$set": {
+                              f"qna_list.{found_idx}.student_query": qna_entry.get("student_query"),
+                              f"qna_list.{found_idx}.chatbot_interaction": qna_entry.get("chatbot_interaction"),
+                              f"qna_list.{found_idx}.relevant_info": qna_entry.get("relevant_info"),
+                              f"qna_list.{found_idx}.relevant_steps": qna_entry.get("relevant_steps"),
+                              "last_updated": now
+                          }
+                        }
+                    )
+                else:
+                    # If no prior interaction, just set it
+                    self.chat_collection.update_one(
+                        {"_id": existing["_id"]},
+                        {
+                          "$set": {
+                              f"qna_list.{found_idx}.student_query": qna_entry.get("student_query"),
+                              f"qna_list.{found_idx}.chatbot_interaction": qna_entry.get("chatbot_interaction"),
+                              f"qna_list.{found_idx}.relevant_info": qna_entry.get("relevant_info"),
+                              f"qna_list.{found_idx}.relevant_steps": qna_entry.get("relevant_steps"),
+                              "last_updated": now
+                          }
+                        }
+                    )
+
+            return conversation_id
+
+        # Create new conversation
+        conversation_id = str(uuid4())
+        document = {
+            "room_id": room_id,
+            "doc_id": conversation_data.get("doc_id"),
+            "user_id": user_id,
+            "user_email": conversation_data.get("user_email"),
+            "lab_name": conversation_data.get("lab_name"),
+            "conversation_id": conversation_id,
+            "started_at": now,
+            "qna_list": [qna_entry],
+            "last_updated": now,
+            "deleted": False
+        }
+        self.chat_collection.insert_one(document)
+        return conversation_id
+    
     def save_generated_questions(self, quizzes: List[Dict], metadata: Optional[Dict] = None) -> str:
         documents = []
         lab_name = metadata.get("lab_name", "Unknown")
