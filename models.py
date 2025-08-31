@@ -1,6 +1,14 @@
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Literal
 from pydantic import BaseModel, Field, model_validator
 from datetime import datetime
+
+
+ResponseLevel = Literal["Hint", "Steps", "Worked Solution", "Answer"]
+
+class CodeContext(BaseModel):
+    language: Optional[str] = None
+    snippet: Optional[str] = None
+    lines: Optional[List[int]] = None
 
 class Topic(BaseModel):
     title: str
@@ -100,6 +108,8 @@ class QnARequest(BaseModel):
     user_email: Optional[str] = None
     lab_name: Optional[str] = None
     structuredData: Optional[Dict] = None
+    response_level: Optional[ResponseLevel] = "Hint"
+    code_context: Optional[CodeContext] = None
 
 class QnAResponse(BaseModel):
     success: bool

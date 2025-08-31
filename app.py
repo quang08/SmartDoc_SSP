@@ -1,7 +1,6 @@
 from typing import List, Optional
 from fastapi import FastAPI, Body, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from datetime import datetime, timezone
 
 from config.config import (
     GEMINI_API_KEY, API_TITLE, API_VERSION, 
@@ -174,26 +173,23 @@ async def generate_qna_content(request: QnARequest):
     """Generate Q&A content for a specific slide step."""
     try:
         qna_content = quiz_generator.generate_qna_content(request.dict())
-        
         if "error" in qna_content:
-            return QnAResponse(
-                success=False,
-                error=qna_content["error"]
-            )
-        
-        # Save to chat collection
+            return QnAResponse(success=False, error=qna_content["error"])
+
         conversation_id = quiz_generator.save_qna_to_chat(qna_content, request.dict())
-        
+
         return QnAResponse(
             success=True,
-            qna_content=qna_content,
+            qna_content={
+                **qna_content,
+                "conversation_id": conversation_id,
+                "buttons_displayed": qna_content.get("_pathway", {}).get("buttons_displayed", []),
+                "next_options_removed": qna_content.get("_pathway", {}).get("next_options_removed", [])
+            },
             message=f"Successfully generated Q&A content for step {request.step}: {request.step_name} (Conversation ID: {conversation_id})"
         )
     except Exception as e:
-        return QnAResponse(
-            success=False,
-            error=f"Failed to generate Q&A content: {str(e)}"
-        )
+        return QnAResponse(success=False, error=f"Failed to generate Q&A content: {str(e)}")
 
 @app.get("/conversation/{room_id}/{user_id}", response_model=ConversationResponse)
 async def get_conversation(self, room_id: str, user_id: str):
