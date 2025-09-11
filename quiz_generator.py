@@ -9,15 +9,17 @@ from utils import classify_slide_structure, collect_html_and_steps, find_step_fr
 from database import MongoDBManager
 from datetime import datetime, timezone
 import re
+from google import genai
+import logging
+
+
+logger = logging.getLogger(__name__)
 HINT_CAP = 2
 
 class QuizGenerator:
     def __init__(self, api_key: str):
         """Initialize the quiz generator with Qwen API key (OpenAI compatible)."""
-        self.client = OpenAI(
-           api_key=os.getenv("OPENAI_API_KEY"),
-           base_url="https://dashscope-intl.aliyuncs.com/compatible-mode/v1"
-        )
+        self.client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
         self.db_manager = MongoDBManager()
     
     def extract_topic_from_slide(self, slide: dict) -> Topic:
@@ -210,19 +212,25 @@ class QuizGenerator:
         """.strip()
 
         try:
-            messages = [
-                {"role": "system", "content": "Bạn là một trợ lý học tập thông minh."},
-                {"role": "user", "content": prompt}
-            ]
-            print(f"[LLM INPUT PROMPT] {prompt}")
-            completion = self.client.chat.completions.create(
-                model="qwen-max",
-                messages=messages,
-                extra_body={"enable_thinking": False},
-                response_format={"type": "json_object"}
-            )
-            output = completion.choices[0].message.content.strip()
-            print(f"[LLM RAW OUTPUT] {output!r}")
+            # messages = [
+            #     {"role": "system", "content": "Bạn là một trợ lý học tập thông minh."},
+            #     {"role": "user", "content": prompt}
+            # ]
+            # print(f"[LLM INPUT PROMPT] {prompt}")
+            # completion = self.client.chat.completions.create(
+            #     model="qwen-max",
+            #     messages=messages,
+            #     extra_body={"enable_thinking": False},
+            #     response_format={"type": "json_object"}
+            # )
+            # output = completion.choices[0].message.content.strip()
+            response = self.client.models.generate_content(model="gemini-2.5-flash", contents=prompt)
+            
+            logger.info(f"[LLM INPUT PROMPT] {prompt}")
+
+            output = response.text.strip()
+
+            logger.info(f"[LLM RAW OUTPUT] {output!r}")
             # No need to strip code block markers, should be pure JSON
             if not output:
                 return {"error": "LLM returned empty output. Check prompt or model quota."}
